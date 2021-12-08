@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+    <title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
+    {% if meta.description %}
+        <meta name="description" content="{{ meta.description|striptags }}" />
+    {% endif %}
+    {% if meta.robots %}
+        <meta name="robots" content="{{ meta.robots }}" />
+    {% endif %}
+
+    {% if current_page %}
+        <link rel="canonical" href="{{ current_page.url }}" />
+    {% endif %}
+
+    <link rel="stylesheet" href="{{ theme_url }}/style.css" type="text/css" / >
+      <!-- link rel="stylesheet" href="{{ theme_url }}/css/droidsans.css" type="text/css" / -->
+    <link rel="stylesheet" href="{{ theme_url }}/css/fontello.css" type="text/css" />
+    
+    <link
+    rel="stylesheet"
+    href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
+    />
+
+
+</head>
+<body{% if config.theme_config.widescreen %} class="widescreen"{% endif %}>
+    <div id="header" role="banner">
+        <div class="container">
+            <div id="title"{{ pages["_meta"].meta.tagline ? ' class="tagline"' }}>
+                <a href="{{ "index"|link }}">
+                    <h1>{{ site_title }}</h1>
+                    {{ pages["_meta"].meta.tagline|markdown }}
+                    
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="main" role="main">
+        <div class="container">
+            <div class="swiper" style="width: 100%;height: auto;">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <div class="swiper-slide">
+                        <h2>{{ meta.title }}</h2>
+                            {{ content }}
+                            <img src="assets/img/{{ meta.image }}" alt="" style="margin:0 auto;width:100%;"/>
+                    </div>
+                    
+        
+        {% for page in pages(current_page.id) if not page.hidden %}
+            <div class="swiper-slide" >
+                {% if page.meta.style == "slide" %}
+    						<h2>{{ page.title }}</h2>
+    						{% if( page.meta.content_vposition == 1) %}
+                                <div class="slide_header">
+                                    {{ page.id|content }}
+                                </div>
+                            {% endif %}
+    						<div style="display: flex;flex-flow: row wrap;align-items:center;">
+    						{% set i=1 %}
+    						{% for img in page.meta.image %}
+                                {% if i == page.meta.content_hposition and page.meta.content_vposition == 2 %}
+                                    <div style="flex:1 1 {{(100/(page.meta.image|length+1))-(page.meta.image|length+1)}}%;margin:1%" >{{ page.id|content }}</div>
+                                {% endif %}
+                                {% set i = i + 1 %}
+                                <div style="flex:1 1 {{(100/(page.meta.image|length+1)) - (page.meta.image|length+1)}}%; margin:1%" ><img src="assets/img/{{ img }}" alt="" /></div>
+    						{%endfor%}
+    						{% if page.meta.content_hposition > page.meta.image|length and page.meta.content_vposition == 2 %}
+                                <div style="flex:1 1 {{(100/(page.meta.image|length+1))- (page.meta.image|length+1)}}%;margin:1%" >{{ page.id|content }}</div>
+                            {% endif %}
+    						</div>
+    						{% if( page.meta.content_vposition == 3) %}
+                                <div class="slide_footer">
+                                    {{ page.id|content }}
+                                </div>
+                            {% endif %}
+    			{% endif %}
+    			</div>
+        {% endfor %}
+        
+                </div>
+                
+                
+
+               
+                
+                
+            </div> 
+             <!-- If we need navigation buttons -->
+
+        </div>
+                <div style="width:100%;position:absolute;bottom:2%:">
+                    <div class="swiper-button-prev" style="position:absolute;left:2%;top: 90%;"></div>
+                    <div class="swiper-button-next" style="position:absolute;right:2%;top: 90%;"></div>
+                    <!-- If we need pagination -->
+                    <div class="swiper-pagination" style="position:absolute;top: 95%;"></div>              
+                </div>
+    </div>
+    
+
+    
+    <div id="footer">
+        <div class="container">
+            {% if pages["_meta"].meta.logo %}
+                <div id="logo" aria-hidden="true">
+                    <a href="{{ "index"|link }}">
+                        <img src="{{ pages["_meta"].meta.logo|url }}" alt="" />
+                    </a>
+                </div>
+            {% endif %}
+        
+            <div class="social">
+                {% for social in pages["_meta"].meta.social %}
+                    <a href="{{ social.url }}" title="{{ social.title }}" role="button">
+                        <span class="icon-{{ social.icon }}" aria-hidden="true"></span>
+                        <span class="sr-only">{{ social.title }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    <!-- script src="{{ theme_url }}/js/modernizr-3.3.1-custom.min.js" type="text/javascript"></script -->
+    <!-- script src="{{ theme_url }}/js/utils.js" type="text/javascript"></script -->
+    <!-- script src="{{ theme_url }}/js/pico.js" type="text/javascript"></script -->
+
+    
+      <script>
+  var mySwiper = new Swiper ('.swiper', {
+    // Optional parameters
+    direction: 'horizontal',
+    loop: true,
+
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+    },
+
+    // Navigation arrows
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+
+    // And if we need scrollbar
+    scrollbar: {
+      el: '.swiper-scrollbar',
+    },
+    
+     keyboard: {
+    enabled: true,
+    onlyInViewport: false,
+    },
+  })
+  </script>
+    
+</body>
+</html>
