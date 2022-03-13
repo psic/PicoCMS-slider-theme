@@ -1,6 +1,6 @@
 # PicoCMS-slider-theme
 
-A picoCMS theme, all your pages are embeded in a slider.
+A picoCMS theme, all your pages are embedded in a slider.
 
 ## Feature
 
