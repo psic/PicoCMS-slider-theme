@@ -16,7 +16,7 @@
 html, body { height: 100%; }
 
 #main {
-    padding: 5em 0 4em;
+    padding: 2em 0 1em;
 }
 
 .container {
@@ -352,4 +352,51 @@ fieldset select:last-child, fieldset textarea:last-child {
 input::-moz-focus-inner, button::-moz-focus-inner {
     border: 0;
     padding: 0;
+}
+
+.swiper{
+    width: 100%;
+    height: auto;
+}
+
+.swiper-slide{
+    
+}
+
+.img_index{
+    margin:0 auto;
+    width:100%;
+}
+
+.middle_zone{
+    display: flex;
+    flex-flow: row wrap;
+    align-items:center;
+}
+.nav_buttons{
+    width:100%;
+    position:absolute;
+    bottom:2%:
+}
+
+.swiper-button-prev{
+    position:absolute;
+    left:2%;
+    top: 90%;
+}
+
+.swiper-button-next{
+    position:absolute;
+    right:2%;
+    top: 90%;
+}
+.swiper-pagination{
+    position:absolute;
+    top: 95%;
+}
+div#TOC{
+    float: right;
+    border: 3px rgb(46, 174, 155) solid;
+    padding: 10px 10px 5px 5px;
+    margin: 1px 0px 10px 10px;
 }
